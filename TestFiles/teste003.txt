@@ -1,0 +1,4 @@
+and     do      else    int     if      string  new
+nil     not     or      return  then    void    while
+{= }= += -= /= *= [= ]= (= )= < > = ; ,
+>= <= == 

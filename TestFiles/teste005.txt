@@ -1,0 +1,28 @@
+int a, b, c ; // inteiros
+int c , d , e ;// mais inteiros
+string XYZ, xyz; // cadeias de caracteres
+
+// uma função
+int boba_1( int num ) {
+   return 0 ;
+} // boba_1
+
+//outra função
+int boba_2( string abcd, 
+            int    num  ) {
+   string x = "abcdef" ;
+   return 1 ;
+} // boba_2
+
+void main( ) {
+
+   while ( 1 = 1 and 2 > 2 or not ( 3 < 3 ) ) do {
+      if ( boba_1( x ) == boba_2( "abc\"d", 10 ) 
+      then {
+         int[ ] z ;
+         z = new int( 5 ) ; 
+      } else {
+         XPTO = nil ;
+      } // if
+   } // while
+}  

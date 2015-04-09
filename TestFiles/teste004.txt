@@ -1,0 +1,4 @@
+abcd ABCD abcd1234 ABCD1234 a A a_ a_b a_5 AND 
+0123 9876 0 1 2 3
+"abcd" "ab\"cd" "\"abcd" "abcd\"" "\"" "" "a" "!@#$%&"
+1234abcd 1234 abcd "abcd"1234 1234"abcd"

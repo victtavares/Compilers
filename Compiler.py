@@ -1,7 +1,7 @@
 # ===============================================================================
-#   NOME:   compiler.py
+# NOME:   compiler.py
 #
-#   Universidade Federal da Bahia
+# Universidade Federal da Bahia
 #   Departamento de Ciencia da Computacao
 #
 #   DISCIPLINA: Compiladores
@@ -21,7 +21,7 @@ import Lexical
 
 # Variables
 file = ""
-tokenIndex = 0
+#TOKEN_INDEX = ""
 
 #Argument List
 arguments = sys.argv[1:]
@@ -31,23 +31,18 @@ arguments = sys.argv[1:]
 if not arguments:
     print Constants.FORMAT % sys.argv[0]
 
-
 for argument in arguments:
-
+    TOKEN_INDEX = ""
     #Test if the file was open
     file = open(argument, 'r')
     if not file:
         print Constants.OPEN_ERROR % argument
         sys.exit(1)
 
-    # Read all characters until end of file
-    TOKEN_INDEX = Lexical.searchToken(file)
-    while TOKEN_INDEX != Lexical.TOKENS.keys().index('TK_Eof'):
-        if TOKEN_INDEX < Lexical.TOKENS.keys().index('TK_Eof'):
-            print Constants.RESERVED, Lexical.TOKEN_NAME
-        else:
-            print Lexical.TOKEN_TIPO, Lexical.TOKEN_NOME
+    #While to read Mutiple files
+    while TOKEN_INDEX != Constants.TK_EOF:
         TOKEN_INDEX = Lexical.searchToken(file)
+        #print(TOKEN_INDEX)
 
     print Constants.END_OF_FILE % argument
 
@@ -58,9 +53,9 @@ for argument in arguments:
         sys.exit(1)
 
     # Cleaning Variables to compile the next File
-    Constants.CHARACTER = " "
-    Constants.LINE = 1
-    Constants.POSITION = 1
+    # Constants.CHARACTER = " "
+    # Constants.LINE = 1
+    # Constants.POSITION = 1
 
 
 # End of compile
