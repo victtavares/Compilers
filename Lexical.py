@@ -23,16 +23,12 @@ import time
 
 
 #Lexical Variables
-myBuffer = ""
 lexeme = ""
-currentIndex = -1
-TOKEN_TYPE = ""
 
 
 #Retracted Variable - Check if a retracted had occur, if so next char will return the previous variable, not the current one
 retracted = False
-previousChar = ""
-currentChar = ""
+
 #automato state => Current position on the automato
 state = 0
 
@@ -45,39 +41,36 @@ def searchToken(file):
     # The next transition, will be -1 if there's no next transition
     #Do while c is not a end of file token - infinite loop
     while True:
-        time.sleep(1)
-        print("--------------- Interaction " + str(state) + " ------------------")
+        #time.sleep(1)
+        #print("--------------- Interaction " + str(state) + " ------------------")
 
         #Reading a character from the file if not retracted before, if so, get the last char from the buffer
-        if retracted:
-            length = len(myBuffer)
-            c = myBuffer
-            print("After retracted:" + c)
-            retracted = False
-        else:
-            c = nextChar(file)
-
-        #State 1 -- 9 = relop characters
-        #Initial State for Special Character: >, = and <
         if state == 0:
+            c = nextChar(file, c)
             if c == "<":
+                lexeme += c
                 state = 1
             elif c == "=":
+                lexeme += c
                 state = 5
             elif c == ">":
+                lexeme += c
                 state = 6
             else:
                 #fail()
                 state = 12
-                break
+
 
         if state == 1:
-            c = nextChar(file)
+            #c = nextChar(file, c)
             if c == "=":
+                lexeme += c
                 state = 2
             if c == ">":
+                lexeme += c
                 state = 3
             else:
+                lexeme += c
                 state = 4
 
         if state == 4:
@@ -85,17 +78,15 @@ def searchToken(file):
         #State "="
         if state == 5:
             state = 0
-            lexeme = myBuffer
-            saveLexeme("Equal", lexeme)
-            clearBuffer()
-            break
+            saveLexeme("Equal")
+
 
         if state == 8:
             retract()
             state = 0
-            saveLexeme("Equal", lexeme)
+            saveLexeme("Equal")
 
-            break
+
 
 
         #State 12 - X = Numerical Token
@@ -103,93 +94,75 @@ def searchToken(file):
         if state == 12:
             #check if it's a digit 0-9
             if c.isdigit():
+                lexeme += c
                 state = 13
+                c = nextChar(file, c)
             else:
                 fail()
+                state = 0
                 #Last state check if c is nil
-                if not c:
-                    print("Not c")
-                    return Constants.TK_EOF
-            break
 
 
         if state == 13:
             while True:
-                #c = nextChar(file)
+                if c.isdigit():
+                    lexeme += c
+                    c = nextChar(file, c)
                 if not c.isdigit():
-                    retract()
-                    saveLexeme("Number", lexeme)
-                    state = 0
-                break
-            break
+                    state = 20
+                    break
+
+
+
+        if state == 20:
+            retract()
+            saveLexeme("Number")
+            state = 0
+
+
+
 
 
         #if Not c, it's end of file
+        if not c:
+            return Constants.TK_EOF
 
 
 
 
 
 
-def saveLexeme(tokenName, lexeme):
+def saveLexeme(tokenName):
+    global lexeme
     print tokenName
     print lexeme
+    lexeme = ""
 
 
 
-def clearBuffer():
-    global myBuffer
-    global currentIndex
 
-    myBuffer = ""
-    currentIndex = -1
 
 #Function called at the end of the automata when the generate lexeme is not valid
 def fail():
-    #Global variables
-    #global state
-    global myBuffer
-    global currentIndex
-
     print("In fail Function")
-    #Restarting the buffer, not a valid character
-    myBuffer = ""
-    currentIndex = -1
 
 
 #Function called to put just the readed character on the buffer and remove everything else
 def retract():
-    global state
-    global myBuffer
-    global currentIndex
-    global retracted, lexeme
-
-    #Lexeme is everything before
-    length = len(myBuffer)
-    lexeme = myBuffer[0:length-1]
-    #setting the state to the beginning
-    state = 0
-    #Remove the rest of the buffer and start with new character
-
-    myBuffer = myBuffer[length - 1]
-    currentIndex = 0
+    global retracted
     retracted = True
-    print "Buffer on retract: " + myBuffer
-
 
 
 #Reading the next file
-def nextChar(file):
-    global myBuffer
-    global currentIndex
-    #Reading one character from the file
-    c = file.readline(1)
-    print("Reading: " + c)
-    #c will return null in case of a end of file
-    if c:
-        myBuffer += c
-        currentIndex += 1
-        return myBuffer[currentIndex]
+def nextChar(file,c):
+    global retracted
+    #if not retracted, update character, otherwise, keep the same
+    if (not retracted):
+        #Reading one character from the file
+        c = file.readline(1)
+        #print("Reading: " + c)
     else:
-        return c
-    #Returning the read character
+        #print("Returning: " + c)
+        retracted = False
+    return c
+
