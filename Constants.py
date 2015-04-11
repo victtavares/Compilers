@@ -13,19 +13,37 @@
 # ===============================================================================
 
 #Token Keys and
-TK_EOF = "TK_Eof"
-TK_AND = "TK_And"
+TK_EOF = "TK_EOF"
+TK_AND = "TK_AND" # and
 
-    # 'TK_And': 'and', 'TK_Do': 'do', 'TK_Else': 'else', 'TK_If': 'if',
-    # 'TK_Int': 'int', 'TK_New': 'new', 'TK_Nil': 'nil', 'TK_Not': 'not',
-    # 'TK_Or': 'or', 'TK_Return': 'return', 'TK_String': 'string',
-    # 'TK_Then': 'then', 'TK_Void': 'void', 'TK_While': 'while', 'TK_Eof': '',
-    # 'TK_PtoVg': ';', 'TK_Virg': ',', 'TK_AbrCol': '[', 'TK_FecCol': ']',
-    # 'TK_AbrPar': '(', 'TK_FecPar': ')', 'TK_AbrCh': '{', 'TK_FecCh': '}',
-    # 'TK_Soma': '+', 'TK_Menos': '-', 'TK_Divide': '/', 'TK_Mult': '*',
-    # 'TK_Atrib': '=', 'TK_Menor': '<', 'TK_Maior': '>', 'TK_IgIg': '==',
-    # 'TK_MenIg': '<=', 'TK_MaiIg': '>=', 'TK_Numero': '', 'TK_Cadeia': '',
-    # 'TK_Iden': ''
+#Tokens - Lexical Keys
+TK_EQUAL = "TK_EQUAL" #
+TK_MINUS = "TK_MINUS" #-
+TK_COMPARISON = "TK_COMPARISON" # ==
+TK_PLUS = "TK_PLUS" # +
+TK_MULTI = "TK_MULTI" # *
+TK_DIV = "TK_DIV" # \
+TK_MOD = "TK_MOD" # %
+TK_PON = "TK_PON" # ^
+TK_HASH = "TK_HASH"# #
+TK_TILDE_EQUAL = "TK_TILDE_EQUAL" #=
+TK_LESS_EQ = "TK_LESS_EQ"# <=
+TK_LESS_THAN = "TK_LESS_THAN" # <
+TK_BIGGER_EQ = "TK_BIGGER_EQ" # >=
+TK__BIGGER_THAN = "TK_BIGGER_THAN"# >
+TK_OPEN_PAREN = "TK_OPEN_PAREN" # (
+TK_CLOSE_PAREN = "TK_CLOSE_PAREN" # )
+TK_OPEN_BRACE = "TK_OPEN_BRACE" # {
+TK_CLOSE_BRACE = "TK_CLOSE_BRACE" # }
+TK_OPEN_BRACKET = "TK_OPEN_BRACKET" # [
+TK_CLOSE_BRACKET = "TK_CLOSE_BRACKET"# ]
+TK_SEMICOLON = "TK_SEMICOLON" #;
+TK_COLON = "TK_COLOR" #:
+TK_COMMA = "TK_COMMA"#,
+TK_DOT = "TK_DOT" #.
+TK_TWO_DOTS = "TK_TWO_DOTS" #..
+TK_THREE_DOTS = "TK_THREE_DOTS" #...
+TK_END_OF_LINE = "TK_END_OF_LINE"  #\n
 
 
 
