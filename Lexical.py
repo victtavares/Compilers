@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-/Users/victorTavares/Downloads/program/lexico.py
 # ===============================================================================
 # NOME:   Lexical.py
 #
 # Universidade Federal da Bahia
 #    Computer Science Departament
 #
-#   COURSE: Compiladores
+#   COURSE:     Compilers
 #   PROFESSOR:  Vinicius Petrucci
-#   PROJECT:    Compilador de Monga 99
+#   PROJECT:    Lua Compiler
 #   AUTHORS:    Fabio Costa <fabiomcosta@dcc.ufba.r>
 #               Victor Tavares <victtavares1@gmail.com>
 #
@@ -19,7 +18,6 @@
 import Constants
 #import time
 #import Tokens
-#from const import caracter
 
 
 #Lexical Variables
@@ -126,7 +124,7 @@ def searchToken(file):
 
 
 
-         #-------------------- LEXICAL ITEMS: State from 1/ 8 to 26 ----------------------------
+         #-------------------- LEXICAL ITEMS: State from 1/ 8 to 41 ----------------------------
 
         if state == 8:
             lexeme += c
@@ -174,10 +172,7 @@ def searchToken(file):
             elif c == "\n":
                 state = 41
             else:
-                #Just at the final state
-                if not (c == "\n" or c == ''):
-                    fail(lexeme)
-                state = 0
+                state = 42
 
         #Check the =
         if state == 9:
@@ -398,8 +393,6 @@ def searchToken(file):
             saveLexeme(Constants.TK_THREE_DOTS)
             state = 0
 
-
-
         #Final State \n
         if state == 41:
             saveLexeme(Constants.TK_END_OF_LINE)
@@ -407,6 +400,60 @@ def searchToken(file):
             break
 
 
+
+         #-------------------- IDENTIFIERS: State from 42 to 44 ----------------------------
+        #Reading alpha or _
+        if state == 42:
+            if c.isalpha() or c == "_":
+                state = 43
+            else:
+                state = 45
+        #Alpha or _ followed by a sequence of alpha, number and _
+        if state == 43:
+            while True:
+                c = nextChar(file)
+                if c.isalpha() or c.isdigit() or c == "_":
+                    lexeme += c
+                else:
+                    state = 44
+                    break
+
+        if state == 44:
+            retract()
+            identifier = isKeyword()
+            saveLexeme(identifier)
+            state = 0
+            break
+
+
+        #-------------------- DELIMITERS: State from 45 to 47 ----------------------------
+        #Reading DELIM
+        if state == 45:
+
+            if c == " ":
+                state = 46
+            else:
+                #Just at the final state
+                if not (c == "\n" or c == ''):
+                    fail(lexeme)
+                state = 0
+
+        #DELIM
+        if state == 46:
+            while True:
+                c = nextChar(file)
+                if c != " ":
+                    state = 47
+                    break
+
+        #DELIM Final state
+        if state == 47:
+            retract()
+            #print("white space")
+            #identifier = isKeyword()
+            #saveLexeme(identifier)
+            state = 0
+            break
 
 
 
@@ -449,6 +496,14 @@ def searchToken(file):
 
 
 
+def isKeyword():
+    global lexeme
+    if lexeme in Constants.myKeywords.keys():
+        return Constants.myKeywords[lexeme]
+    else:
+        return Constants.TK_IDENTIFIER
+
+
 
 
 def saveLexeme(tokenName):
@@ -463,7 +518,7 @@ def saveLexeme(tokenName):
 #Function called at the end of the automata when the generate lexeme is not valid
 def fail(currentChar):
     global lexeme
-    #print("The character \"" + currentChar + "\" is not a valid lexeme")
+    print("The character \"" + currentChar + "\" is not a valid lexeme")
     lexeme = ""
 
 
