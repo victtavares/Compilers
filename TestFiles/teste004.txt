@@ -1,4 +1,22 @@
-abcd ABCD abcd1234 ABCD1234 a A a_ a_b a_5 AND 
-0123 9876 0 1 2 3
-"abcd" "ab\"cd" "\"abcd" "abcd\"" "\"" "" "a" "!@#$%&"
-1234abcd 1234 abcd "abcd"1234 1234"abcd"
+-- Variable definition:
+local a, b
+-- Initialization
+a = 10
+b = 30
+
+print("value of a:", a)
+
+print("value of b:", b)
+
+-- Swapping of variables
+tmp = b
+b = a
+a = tmp
+-- or may directly use: b, a = a, b
+
+print("value of a:", a)
+
+print("value of b:", b)
+
+f = 70.0/3.0
+print("value of f", f)

@@ -75,6 +75,16 @@ myKeywords = {"and": 'TK_AND', 'break': 'TK_BREAK', 'do': 'TK_DO', 'else': 'TK_E
 # TK_UNTIL = "TK_UNTIL"
 # TK_WHILE = "TK_WHILE"
 
+#Tokens - Numbers
+TK_NUMBER_HEX = "TK_NUMBER_HEX"
+TK_NUMBER_INT = "TK_NUMBER_INT"
+TK_NUMBER_FLOAT = "TK_NUMBER_FLOAT"
+TK_NUMBER_EXPO = "TK_NUMBER_EXPO"
+
+
+#String Literal
+TK_STRING_LITERAL = "TK_STRING_LITERAL"
+
 
 
 

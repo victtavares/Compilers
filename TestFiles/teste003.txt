@@ -1,4 +1,9 @@
-and     do      else    int     if      string  new
-nil     not     or      return  then    void    while
-{= }= += -= /= *= [= ]= (= )= < > = ; ,
->= <= == 
+function fat(n)
+    if n == 0 then
+      return 1
+    else
+      return n * fatorial (n-1)
+    end
+end
+
+fat(10)
